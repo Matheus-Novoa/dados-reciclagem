@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: bronze_receita
+    meta:
+      # O dbt-duckdb vai injetar o nome da tabela no lugar de {name}
+      external_location: "../data/bronze/bronze_estabelecimentos.parquet"
+    tables:
+      - name: bronze_estabelecimentos  # IMPORTANTE: Use exatamente o nome do seu arquivo parquet (sem o .parquet)

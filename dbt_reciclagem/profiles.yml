@@ -1,0 +1,11 @@
+dbt_reciclagem:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ':memory:' # O banco roda em memória e usa o disco apenas para salvar os Parquets
+      extensions:
+        - parquet
+      settings:
+        threads: 4
+        memory_limit: '8GB'

@@ -9,3 +9,6 @@ wheels/
 # Virtual environments
 .venv
 data
+logs
+target
+.user.yml
