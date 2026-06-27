@@ -1,12 +1,6 @@
--- {{ config(
---     materialized='external',
---     location='../data/bronze/bronze_estabelecimentos.parquet'
--- ) }}
-
 select * from read_csv(
     '../data/raw/*', -- 👈 Caminho para os seus arquivos ZIP brutos
-    header=False,
-    all_varchar=True,                     -- 👈 Garante que CEP, CNPJ e UF não percam zeros à esquerda
+    header=False,                     -- 👈 Garante que CEP, CNPJ e UF não percam zeros à esquerda
     delim=';',
     auto_detect=False,
     ignore_errors=True,
@@ -45,3 +39,6 @@ select * from read_csv(
         'data_situacao_especial': 'VARCHAR'
     }
 )
+where 1=1
+and cnae_fiscal_principal='3832700'
+or cnae_fiscal_secundaria='3832700'

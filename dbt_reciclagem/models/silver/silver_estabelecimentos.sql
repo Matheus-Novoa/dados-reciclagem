@@ -1,9 +1,3 @@
-{{ config(
-    -- materialized='external',
-    -- location='../data/silver',
-    options={'partition_by': 'uf'}
-) }}
-
 select
     cnpj_basico,
     cnpj_ordem,
