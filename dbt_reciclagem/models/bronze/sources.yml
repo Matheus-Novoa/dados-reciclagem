@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: raw_cnpj
+    description: "Dados públicos da Receita Federal (extraídos de ZIPs)"
+    tables:
+      - name: estabelecimentos
+        description: "Estabelecimentos comerciais"
+        external:
+          location: "../data/raw/*.ESTABELE"
+      
+      - name: empresas
+        description: "Dados cadastrais das empresas"
+        external:
+          location: "../data/raw/*.EMPRECSV"
+      
+      - name: municipios
+        description: "Tabela de correlação código IBGE ↔ nome"
+        external:
+          location: "../data/raw/F.K03200$Z.D60613.MUNICCSV"

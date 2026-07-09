@@ -1,5 +1,5 @@
 select * from read_csv(
-    '../data/raw/*', -- 👈 Caminho para os seus arquivos ZIP brutos
+    '../data/raw/*.ESTABELE', -- 👈 Caminho para os seus arquivos ZIP brutos
     header=False,
     delim=';',
     auto_detect=False,
