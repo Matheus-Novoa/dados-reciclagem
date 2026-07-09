@@ -1,6 +1,6 @@
 select * from read_csv(
     '../data/raw/*', -- 👈 Caminho para os seus arquivos ZIP brutos
-    header=False,                     -- 👈 Garante que CEP, CNPJ e UF não percam zeros à esquerda
+    header=False,
     delim=';',
     auto_detect=False,
     ignore_errors=True,

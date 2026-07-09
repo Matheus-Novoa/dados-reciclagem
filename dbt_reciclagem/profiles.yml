@@ -3,7 +3,7 @@ dbt_reciclagem:
   outputs:
     dev:
       type: duckdb
-      path: ':memory:' # O banco roda em memória e usa o disco apenas para salvar os Parquets
+      path: '../data/estab_reciclagem.duckdb'
       extensions:
         - parquet
       settings:

@@ -4,20 +4,11 @@ profile: dbt_reciclagem
 models:
   dbt_reciclagem:
     bronze:
-      +materialized: external
-      +options:
-        compression: snappy
-      +external_root: '../data/bronze'
-    # Camada Silver: Lê da Bronze e salva na pasta silver/
+      +materialized: table
     silver:
+      +materialized: table
+    gold:
       +materialized: external
+      +external_root: '../data/gold'
       +options:
         compression: 'snappy'
-        #partition_by: ['uf']
-      +external_root: '../data/silver'
-    # Camada Gold: Lê da Silver e salva na pasta gold/
-    # gold:
-    #   +materialized: external
-    #   +options:
-    #     compression: 'snappy'
-    #   +external_root: '../data/gold'

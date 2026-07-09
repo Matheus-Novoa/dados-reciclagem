@@ -1,19 +1,20 @@
 import zipfile
 from pathlib import Path
 
-def extrair_e_deletar_zips(caminho_pasta: str):
+def extrair_e_deletar_zips(caminho_pasta_zip: str, caminho_pasta_salvar: str):
     # Converte para caminho absoluto baseado de onde o script está sendo executado
-    pasta_alvo = Path(caminho_pasta).resolve()
+    caminho_pasta_zip_completo = Path(caminho_pasta_zip).resolve()
+    caminho_pasta_salvar_completo = Path(caminho_pasta_salvar).resolve()
     
-    if not pasta_alvo.exists():
-        print(f"❌ Diretório não encontrado: {pasta_alvo}")
+    if not caminho_pasta_zip_completo.exists():
+        print(f"❌ Diretório não encontrado: {caminho_pasta_zip_completo}")
         return
         
     # Procura todos os arquivos .zip na pasta
-    arquivos_zip = list(pasta_alvo.glob("*.zip"))
+    arquivos_zip = list(caminho_pasta_zip_completo.glob("*.zip"))
     
     if not arquivos_zip:
-        print(f"⚠️ Nenhum arquivo .zip encontrado em: {pasta_alvo}")
+        print(f"⚠️ Nenhum arquivo .zip encontrado em: {caminho_pasta_zip_completo}")
         return
         
     print(f"📦 Encontrados {len(arquivos_zip)} arquivo(s) compactado(s).\n")
@@ -23,7 +24,7 @@ def extrair_e_deletar_zips(caminho_pasta: str):
         try:
             # Abre e extrai o arquivo
             with zipfile.ZipFile(zip_path, 'r') as zip_ref:
-                zip_ref.extractall(pasta_alvo)
+                zip_ref.extractall(caminho_pasta_salvar_completo)
             print(f"✅ {zip_path.name} extraído com sucesso!")
             
             # Deleta o arquivo .zip apenas se a extração correu bem
@@ -39,5 +40,9 @@ def extrair_e_deletar_zips(caminho_pasta: str):
 
 if __name__ == "__main__":
     # Mantendo o caminho relativo padrão do projeto
-    CAMINHO_DADOS = "data/raw"
-    extrair_e_deletar_zips(CAMINHO_DADOS)
+    CAMINHO_DADOS_SALVAR = "data/raw"
+    CAMINHO_DADOS_DOWNLOAD = "data/download"
+    extrair_e_deletar_zips(
+        caminho_pasta_zip=CAMINHO_DADOS_DOWNLOAD,
+        caminho_pasta_salvar=CAMINHO_DADOS_SALVAR
+    )
