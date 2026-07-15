@@ -8,8 +8,8 @@ select
     nullif(upper(trim(nome_cidade_exterior)), '') as nome_cidade_exterior,
     cast(nullif(trim(pais), '') as integer) as codigo_pais,
     case
-    when nullif(trim(data_inicio_atividade), '') in ('00000000', '') then null
-    else strptime(data_inicio_atividade, '%Y%m%d')::date
+        when nullif(trim(data_inicio_atividade), '') in ('00000000', '') then null
+        else strptime(data_inicio_atividade, '%Y%m%d')::date
     end as data_inicio_atividade,
     lpad(trim(cnae_fiscal_principal), 7, '0') as cnae_fiscal_principal,
     nullif(trim(cnae_fiscal_secundaria), '') as cnae_fiscal_secundaria,

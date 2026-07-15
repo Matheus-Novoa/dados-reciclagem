@@ -6,9 +6,6 @@ models:
     bronze:
       +materialized: table
     silver:
-      +materialized: table
+      +materialized: view
     gold:
-      +materialized: external
-      +external_root: '../data/gold'
-      +options:
-        compression: 'snappy'
+      +materialized: table
