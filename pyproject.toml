@@ -10,5 +10,6 @@ dependencies = [
     "fastparquet>=2026.5.0",
     "numpy>=2.4.6",
     "pandas>=3.0.3",
+    "streamlit>=1.60.0",
     "tqdm>=4.68.3",
 ]

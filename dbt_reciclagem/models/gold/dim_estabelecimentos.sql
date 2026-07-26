@@ -17,7 +17,20 @@ tb_nomes_municipios as (
     where situacao_cadastral = 2
 )
 select
-	*,
+	coalesce(nome_fantasia, razao_social) as empresa,
+    razao_social,
+    cnpj_basico || cnpj_ordem || cnpj_dv as cnpj,
+    nome_fantasia,
+    data_inicio_atividade,
+    logradouro,
+    numero,
+    complemento,
+    bairro,
+    cep,
+    correio_eletronico,
+    uf,
+    desc_porte_empresa,
+    nome_municipio,
 	case
 		when uf in ('AC', 'AP', 'AM', 'PA', 'RO', 'RR', 'TO') then 'NORTE'
         when uf in ('AL', 'BA', 'CE', 'MA', 'PB', 'PE', 'PI', 'RN', 'SE') then 'NORDESTE'
@@ -27,3 +40,4 @@ select
         else 'DESCONHECIDO'
 	end as regiao
 from tb_nomes_municipios
+where uf <> 'EX'
