@@ -115,6 +115,23 @@ CSS_STYLES = """
     background-color: transparent;
 }
 
+[data-testid="stButton"] button {
+    background-color: #E2E8F0 !important;
+    color: #0F172A !important;
+    border: 1px solid #CBD5E1 !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="stButton"] button:hover {
+    background-color: #2D5016 !important;
+    color: #FFFFFF !important;
+    border: 1px solid #2D5016 !important;
+}
+
+[data-testid="stSelectbox"] {
+    background-color: #E2E8F0 !important;
+}
+
 .dashboard-table-container {
     width: 100%;
     max-width: 100%;
@@ -179,8 +196,8 @@ CSS_STYLES = """
 
 
 .dashboard-table thead th {
-    background-color: #FBBF24;
-    color: #0F172A;
+    background-color: #2D5016;
+    color: #FFFFFF;
     font-weight: 700;
     font-size: 0.95rem;
     letter-spacing: 0.08em;
@@ -268,16 +285,35 @@ def render_data_table(
     if column_labels:
         display_df = display_df.rename(columns=column_labels)
 
+    # Paginação
+    rows_per_page = 15
+    total_rows = len(display_df)
+    total_pages = (total_rows + rows_per_page - 1) // rows_per_page
+
+    # Inicializar session state para página atual
+    if "current_page" not in st.session_state:
+        st.session_state.current_page = 0
+
+    # Garantir que current_page não ultrapasse o total de páginas
+    if st.session_state.current_page >= total_pages:
+        st.session_state.current_page = total_pages - 1
+
+    # Calcular índices para a página atual
+    start_idx = st.session_state.current_page * rows_per_page
+    end_idx = start_idx + rows_per_page
+    page_df = display_df.iloc[start_idx:end_idx]
+
+    # Renderizar tabela da página atual
     header_cells = "".join(
         f'<th>{column_labels.get(col, col.title().replace("_", " "))}</th>'
-        for col in display_df.columns
+        for col in page_df.columns
     )
 
     body_rows = []
-    for _, row in display_df.iterrows():
+    for _, row in page_df.iterrows():
         row_cells = "".join(
             f'<td>{row[col] if pd.notna(row[col]) else ""}</td>'
-            for col in display_df.columns
+            for col in page_df.columns
         )
         body_rows.append(f"<tr>{row_cells}</tr>")
 
@@ -295,3 +331,46 @@ def render_data_table(
     """
 
     st.markdown(table_html, unsafe_allow_html=True)
+
+    st.divider()
+
+    # Controles de paginação abaixo da tabela
+    col1, col2, col3, col4, col5 = st.columns([1, 1, 2, 1, 1], gap="small")
+
+    with col1:
+        if st.button("⬅️ Anterior", use_container_width=True):
+            if st.session_state.current_page > 0:
+                st.session_state.current_page -= 1
+                st.rerun()
+
+    with col2:
+        if st.button("Próximo ➡️", use_container_width=True):
+            if st.session_state.current_page < total_pages - 1:
+                st.session_state.current_page += 1
+                st.rerun()
+
+    with col3:
+        page_options = [f"Página {i + 1}" for i in range(total_pages)]
+        selected_page = st.selectbox(
+            "Ir para página:",
+            page_options,
+            index=st.session_state.current_page,
+            key="page_selector",
+            label_visibility="collapsed",
+        )
+        new_page = page_options.index(selected_page)
+        if new_page != st.session_state.current_page:
+            st.session_state.current_page = new_page
+            st.rerun()
+
+    with col4:
+        st.markdown(
+            f"<div style='text-align: center; padding: 8px;'><small>{st.session_state.current_page + 1}/{total_pages}</small></div>",
+            unsafe_allow_html=True,
+        )
+
+    with col5:
+        st.markdown(
+            f"<div style='text-align: center; padding: 8px;'><small>{total_rows} linhas</small></div>",
+            unsafe_allow_html=True,
+        )
