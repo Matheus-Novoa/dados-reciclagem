@@ -149,6 +149,20 @@ CSS_STYLES = """
     font-size: 0.8rem;
 }
 
+.dashboard-table th:first-child {
+    width: 28%;
+}
+
+.dashboard-table th:nth-child(2) {
+    width: 24%;
+}
+
+.dashboard-table th:nth-child(3),
+.dashboard-table th:nth-child(4),
+.dashboard-table th:nth-child(5) {
+    width: 16%;
+}
+
 .dashboard-table td:first-child {
     width: 28%;
 }
@@ -163,6 +177,7 @@ CSS_STYLES = """
     width: 16%;
 }
 
+
 .dashboard-table thead th {
     background-color: #FBBF24;
     color: #0F172A;
@@ -171,6 +186,7 @@ CSS_STYLES = """
     letter-spacing: 0.08em;
     text-transform: uppercase;
     border-bottom: none;
+    text-align: center;
 }
 
 .dashboard-table tbody tr:nth-child(odd) {
