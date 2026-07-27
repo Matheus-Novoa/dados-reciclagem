@@ -12,14 +12,14 @@ CSS_STYLES = """
 }
 
 .dashboard-header {
-    background: linear-gradient(135deg, #111827 0%, #1F2937 100%);
+    background: linear-gradient(135deg, #4CAF50 0%, #5DB75A 100%);
     color: #ffffff;
     padding: 24px 28px;
     font-size: 26px;
     font-weight: 700;
     border-radius: 18px;
     margin-bottom: 24px;
-    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 18px 45px rgba(76, 175, 80, 0.15);
 }
 
 .metrics-row {
