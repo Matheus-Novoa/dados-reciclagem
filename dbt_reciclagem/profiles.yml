@@ -3,7 +3,7 @@ dbt_reciclagem:
   outputs:
     dev:
       type: duckdb
-      path: '../data/estab_reciclagem.duckdb'
+      path: 'data/estab_reciclagem.duckdb'
       extensions:
         - parquet
       settings:
