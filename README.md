@@ -66,7 +66,7 @@ O processo inicial acontece em `extract.py`. O script percorre a pasta `data/dow
 
 ### 2. Raw (temporária)
 
-A camada raw preserva os arquivos originais do CNPJ em `data/raw` apenas como etapa промежária. Esses arquivos são temporários e têm finalidade de facilitar a ingestão inicial; após a carga bem-sucedida na camada bronze, eles podem ser removidos para economizar espaço em disco, dado o volume elevado dos dados públicos.
+A camada raw preserva os arquivos originais do CNPJ em `data/raw` apenas como etapa temporária. Esses arquivos são temporários e têm finalidade de facilitar a ingestão inicial; após a carga bem-sucedida na camada bronze, eles podem ser removidos para economizar espaço em disco, dado o volume elevado dos dados públicos.
 
 ### 3. Bronze
 
